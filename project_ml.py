@@ -58,10 +58,24 @@ dat.gom.describe() # à voir
 dat = dat.sort_values(by='gom', ascending=False)
 dat = dat.iloc[2:]
 
+# Re sorting the database
+dat = dat.sort_values(['id', 'year'],
+              ascending = [True, True])
+
 # Creating an age variable
 age = dat.year - dat.yearest
 dat.insert(4, 'age', age)
 
-# Re sorting the database
-dat = dat.sort_values(['id', 'year'],
-              ascending = [True, True])
+# Creating a HGF variable
+threshold = dat['sales'].quantile(0.9)
+dat['hgf'] = dat['sales'] > threshold
+dat['hgf'] = dat['hgf'].astype(int)
+
+# =============================================================================
+# Which company is going to be a HGF in the last of year of the sample ?
+# =============================================================================
+
+
+
+
+
