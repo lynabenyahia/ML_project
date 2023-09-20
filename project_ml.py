@@ -49,15 +49,19 @@ matplotlib.pyplot.boxplot(dat.rdint)
 matplotlib.pyplot.boxplot(dat.enggrad)
 matplotlib.pyplot.boxplot(dat.pertot)
 matplotlib.pyplot.boxplot(dat.gom)
+matplotlib.pyplot.boxplot(dat.va)
+matplotlib.pyplot.boxplot(dat.sales)
 
 
+# Delete the 2 outliers in the gom column, which was extremly high comparing to the rest of the column
 dat.gom.describe() # à voir
-dat = dat.sort_values(by='gom', ascending=True)
-dat = dat.iloc[9:]
+dat = dat.sort_values(by='gom', ascending=False)
+dat = dat.iloc[2:]
 
-dat = dat.sort_values(by='Unnamed: 0', ascending=True)
-
-
+# Creating an age variable
 age = dat.year - dat.yearest
 dat.insert(4, 'age', age)
 
+# Re sorting the database
+dat = dat.sort_values(['id', 'year'],
+              ascending = [True, True])
