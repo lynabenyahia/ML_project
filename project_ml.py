@@ -82,7 +82,12 @@ dat['RD_intensity'] = ( (dat.rdint + dat.reext) / dat.va ) * 100
 # Which company is going to be a HGF in the last of year of the sample ?
 # =============================================================================
 
+# Creating a training set and a test set 
+
 dat_training = dat[dat['year'] < 2012]
 dat_test = dat[dat['year'] == 2012]
+
+# Testing different models 
+
 
 
