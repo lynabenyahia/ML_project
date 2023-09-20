@@ -23,13 +23,19 @@ dat['yearest'] = dat.groupby('id')['yearest'].transform(lambda x: x.min())
 dat['yearest'].fillna(dat['yearest'].mode()[0], inplace=True)
 
 # Replace sales and va missing by the mean of the value before and after the value
-dat['sales'] = dat.groupby('id')['sales'].apply(lambda x: x.interpolate().bfill().ffill())
-dat['va'] = dat.groupby('id')['va'].apply(lambda x: x.interpolate().bfill().ffill())
+dat['sales'] = dat.groupby('id')['sales'].apply(lambda x: x.interpolate().bfill().ffill()).reset_index(drop=True)
+dat['va'] = dat.groupby('id')['va'].apply(lambda x: x.interpolate().bfill().ffill()).reset_index(drop=True)
 
 # Applying the same treatment to the others variables except id, year and yearest
 cols_to_impute = dat.columns.difference(['id', 'year', 'yearest']) 
 for col in cols_to_impute: 
-    dat[col] = dat.groupby('id')[col]. apply (lambda x: x.ffill().bfill())
+    dat[col] = dat.groupby('id')[col]. apply (lambda x: x.ffill().bfill()).reset_index(drop=True)
+
+# Use median imputation for vartables with remaining missing values
+cols_to_median_impute = ['ipnm', 'ipnf', 'ipnc', 'enggrad', 'va', 'gom', 'reext', 'rdint', 'ipr', 'patent', 'sales']
+for col in cols_to_median_impute:
+    median_value = dat[col].median() 
+    dat[col].fillna(median_value, inplace=True)
 
 missing_values_final = dat.isnull().mean() * 100
 missing_values_final.sort_values(ascending=False)
