@@ -11,12 +11,12 @@ import pandas as pd
 import matplotlib
 
 dat = pd.read_csv('/Users/lyna/Desktop/M2/supervised learning/data_assignment_1.csv')    
-dat = dat.drop(['Unnamed: 0'], axis=1)
-    
 
 dat = pd.read_csv('C:/Users/epcmic/OneDrive/Documents/GitHub/ML_project/data_assignment_1.csv')
 
 
+dat = dat.drop(['Unnamed: 0'], axis=1)
+    
 # =============================================================================
 # NA TREATMENT
 # =============================================================================
@@ -81,6 +81,7 @@ dat['RD_intensity'] = ( (dat.rdint + dat.reext) / dat.va ) * 100
 # =============================================================================
 # Which company is going to be a HGF in the last of year of the sample ?
 # =============================================================================
+
 dat_training = dat[dat['year'] < 2012]
 dat_test = dat[dat['year'] == 2012]
 
