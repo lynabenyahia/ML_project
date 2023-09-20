@@ -67,15 +67,17 @@ age = dat.year - dat.yearest
 dat.insert(4, 'age', age)
 
 # Creating a HGF variable
-threshold = dat['sales'].quantile(0.9)
-dat['hgf'] = dat['sales'] > threshold
-dat['hgf'] = dat['hgf'].astype(int)
+dat['9th_percentile'] = dat.groupby('year')['sales'].transform(lambda x: x.quantile(0.9))
+dat['hgf'] = (dat['sales'] > dat['9th_percentile']).astype(int)
+dat.drop(columns=['9th_percentile'], inplace=True)
+
+# Creating a R&D intensity variable
+dat['RD_intensity'] = ( (dat.rdint + dat.reext) / dat.va ) * 100
 
 # =============================================================================
 # Which company is going to be a HGF in the last of year of the sample ?
 # =============================================================================
-
-
-
+dat_training = 
+dat_test = 
 
 
