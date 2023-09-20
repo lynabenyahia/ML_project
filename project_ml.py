@@ -3,7 +3,7 @@
 """
 Created on Tue Sep 19 09:31:56 2023
 
-@author: lyna
+@author: lyna, Jeanne, Marion
 """
     
 
