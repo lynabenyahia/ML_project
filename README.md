@@ -1,6 +1,5 @@
 # ML_project
-### Prediction of which company is going to be a HGF in the last of year of the sample. This is very important for managers and policy-maker, 
-### for example if they wish to identify promising companies for M&A and/or target financial support.
+### Prediction of which company is going to be a HGF in the last of year of the sample. This is very important for managers and policy-maker, for example if they wish to identify promising companies for M&A and/or target financial support.
 #### Here is the description of the variables at our disposal:
 #### id: Company’s ID [anonymized]
 #### year : Year
