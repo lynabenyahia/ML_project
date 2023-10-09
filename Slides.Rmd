@@ -8,39 +8,37 @@ output: ioslides_presentation
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+## Presentation
 
-Presentation
+[Source of Data]{.underline} : the Survey on Buisiness Strategies
 
-Source of Data : the Survey on Buisiness Strategies
+-   2000 manufacturing companies
 
-2000 manufacturing companies
+-   121 992 observations
 
-121 992 observations
+-   16 variables period : 1990-2012
 
-16 variables period : 1990-2012
+[GOAL]{.underline} : Predict which company is going to be a HGF in the last of year of the sample
 
-GOAL : Predict which company is going to be a HGF in the last of year of the sample
+## Steps
 
-Steps
+1)  NA Treatment
 
-NA Treatment
+-   For the yearest, use the minimum of the id - id = 0 : delete
 
-For the yearest, use the minimum of the id - id = 0 : delete
+-   use the mean of the value before and after the value when there are a value for another same id
 
-use the mean of the value before and after the value when there are a value for another same id
+-   Use the median imputation for variables with remaining missing values
 
-Use the median imputation for variables with remaining missing values
+2)  Outliers Treatment
 
-Outliers Treatment
+-   Delete the 2 outliers in the "gom" column, which was extremely high comparing to the rest of the column
 
-Delete the 2 outliers in the "gom" column, which was extremely high comparing to the rest of the column
+3)  Creating new variables
 
-Creating new variables
+-   age, HGF and R&D
 
-age, HGF and R&D
-
-
-![Matrice de corrélation](images/correlation_matrix.png)
+![*Matrix of correlation*](images/correlation_matrix.png)
 Matrix of correlation
 ## Model
 
