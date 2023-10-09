@@ -40,9 +40,14 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ![*Matrix of correlation*](images/correlation_matrix.png)
 Matrix of correlation
+
 ## Model
 
-blabla
+|               | Logistic regression | SVM   | K nearest neighbors | Decision tree | Random forest | XG Boost |
+|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+| accuracy test | 0.117               | 0.994 | 0.997               | 0.997549      | 0.999057      | 0.999246 |
+
+: *Accuracy of the models*
 
 ## Results
 
