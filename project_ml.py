@@ -9,13 +9,19 @@ Created on Tue Sep 19 09:31:56 2023
 
 import pandas as pd
 import matplotlib
-from sklearn.model_selection import train_test_split
-import mglearn
 from sklearn.linear_model import LogisticRegression
-from sklearn.svm import LinearSVC
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.svm import SVC
+from sklearn.model_selection import GridSearchCV
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import confusion_matrix, classification_report
+from xgboost import XGBClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
 
 
 dat = pd.read_csv('/Users/lyna/Desktop/M2/supervised learning/data_assignment_1.csv')    
@@ -110,8 +116,6 @@ logreg.fit(X_train, y_train)
 
 print("Accuracy (training): {:.3f}".format(logreg.score(X_train, y_train)))
 print("Accuracy (test): {:.3f}".format(logreg.score(X_test, y_test)))
-
-
 # =============================================================================
 # SUPPORT VECTOR MACHINES
 # =============================================================================
@@ -133,7 +137,7 @@ min_on_training = X_train.min(axis=0)
 # And the range of each feature (max - min) on the training set
 range_on_training = (X_train - min_on_training).max(axis=0)
 
-# Then we subtract the min and divide by range
+# Subtract the min and divide by range
 X_train_scaled = (X_train - min_on_training) / range_on_training
 print("Minimum for each feature\n", X_train_scaled.min(axis=0))
 print("Maximum for each feature\n", X_train_scaled.max(axis=0))
@@ -147,7 +151,7 @@ plt.ylabel("Feature value")
 # Make sure to use the same scaling on the test setm, using min and range of the training set
 X_test_scaled = (X_test - min_on_training) / range_on_training
 
-# Finally, check the performance of the model
+# Check the performance of the model
 svc = SVC()
 svc.fit(X_train_scaled, y_train)
 
@@ -158,9 +162,13 @@ print("Accuracy (test): {:.3f}".format(svc.score(X_test_scaled, y_test)))
 # =============================================================================
 # K NEAREST NEIGHBORS
 # =============================================================================
+# Selecting the optimal value of K
+param_grid = {'n_neighbors': np.arange(1, 20)}
+knn_gscv = GridSearchCV(KNeighborsRegressor(), param_grid, cv=10)
 
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import confusion_matrix, classification_report
+# Fit the model on the training set 
+knn_gscv.fit(X_train, y_train)
+knn_gscv.best_params_
 
 # Instantiate the model   
 knn = KNeighborsClassifier(n_neighbors = 19)
@@ -174,22 +182,63 @@ y_pred = knn.predict(X_test)
 print('Confusion matrix: \n', confusion_matrix(y_test, y_pred))
 print('Classifier performance: \n', classification_report(y_test, y_pred, digits=3))
 
+# =============================================================================
+# DECISION TREE
+# =============================================================================
 
-# Selecting the optimal value of K with `GridSearchCV()`
+def print_score(clf, X_train, y_train, X_test, y_test, train=True):
+    if train:
+        pred = clf.predict(X_train)
+        clf_report = pd.DataFrame(classification_report(y_train, pred, output_dict=True))
+        print("Train Result:\n================================================")
+        print(f"Accuracy Score: {accuracy_score(y_train, pred) * 100:.2f}%")
+        print("_______________________________________________")
+        print(f"CLASSIFICATION REPORT:\n{clf_report}")
+        print("_______________________________________________")
+        print(f"Confusion Matrix:\n{confusion_matrix(y_train, pred)}\n")
+        
+    elif not train:
+        pred = clf.predict(X_test)
+        clf_report = pd.DataFrame(classification_report(y_test, pred, output_dict=True))
+        print("Test Result:\n================================================")
+        print(f"Accuracy Score: {accuracy_score(y_test, pred) * 100:.2f}%")
+        print("_______________________________________________")
+        print(f"CLASSIFICATION REPORT:\n{clf_report}")
+        print("_______________________________________________")
+        print(f"Confusion Matrix:\n{confusion_matrix(y_test, pred)}\n")
 
-from sklearn.model_selection import GridSearchCV
-from sklearn.neighbors import KNeighborsRegressor
 
-# The function offers a much easier way to select the tuning parameters
+tree_clf = DecisionTreeClassifier(random_state=42)
+tree_clf.fit(X_train, y_train)
 
-# create a dictionary of all K values we want to test 
-param_grid = {'n_neighbors': np.arange(1, 20)}
+print_score(tree_clf, X_train, y_train, X_test, y_test, train=True)
+print_score(tree_clf, X_train, y_train, X_test, y_test, train=False)
 
-# Initiate the model
-knn_gscv = GridSearchCV(KNeighborsRegressor(), param_grid, cv=10)
 
-# Fit the model on the training set 
-knn_gscv.fit(X_train, y_train)
+# =============================================================================
+#  RANDOM FOREST
+# =============================================================================
 
-# Check the best model 
-knn_gscv.best_params_
+# Création d'une instance du classificateur RandomForest
+rf_clf = RandomForestClassifier(n_estimators=1000, random_state=42)
+
+# Entraînement du modèle sur les données d'entraînement
+rf_clf.fit(X_train, y_train)
+
+# Appel de la fonction print_score pour afficher les résultats
+print_score(rf_clf, X_train, y_train, X_test, y_test, train=True)
+print_score(rf_clf, X_train, y_train, X_test, y_test, train=False)
+
+
+# =============================================================================
+# XG BOOST
+# =============================================================================
+# Création d'une instance du classificateur XGBoost
+xgb_clf = XGBClassifier(use_label_encoder=False)
+
+# Entraînement du modèle sur les données d'entraînement
+xgb_clf.fit(X_train, y_train)
+
+# Appel de la fonction print_score pour afficher les résultats
+print_score(xgb_clf, X_train, y_train, X_test, y_test, train=True)
+print_score(xgb_clf, X_train, y_train, X_test, y_test, train=False)
