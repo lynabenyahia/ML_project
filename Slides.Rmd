@@ -15,7 +15,7 @@ blabla
 
 ## Steps
 
-blabla
+![Matrice de corrélation](images/correlation_matrix.png)
 
 ## Model
 
