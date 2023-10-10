@@ -1,5 +1,5 @@
 ---
-title: "ML_project"
+title: "Supervised Learning project"
 author: "Marion, Lyna, Jeanne"
 date: "2023-09-20"
 output: ioslides_presentation
@@ -8,6 +8,7 @@ output: ioslides_presentation
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
 ## Presentation
 
 [Source of Data]{.underline} : the Survey on Buisiness Strategies
@@ -22,37 +23,34 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Steps
 
-1)  NA Treatment
+### NA Treatment
 
--   For the yearest, use the minimum of the id - id = 0 : delete
+-   For the yearest, use the minimum of the id
+
+-   id = 0 : delete
 
 -   use the mean of the value before and after the value when there are a value for another same id
 
 -   Use the median imputation for variables with remaining missing values
 
-2)  Outliers Treatment
+### Outliers Treatment
 
 -   Delete the 2 outliers in the "gom" column, which was extremely high comparing to the rest of the column
 
-3)  Creating new variables
+### Creating new variables
 
 -   age, HGF and R&D
 
-![*Matrix of correlation*](images/correlation_matrix.png)
-Matrix of correlation
+![Matrix of correlation](correlation_matrix.png) Matrix of correlation
 
 ## Model
 
-|               | Logistic regression | SVM   | K nearest neighbors | Decision tree | Random forest | XG Boost |
+|                | Logistic regression | SVM   | K nearest neighbors | Decision tree | Random forest | XG Boost |
 |-----------|-----------|-----------|-----------|-----------|-----------|-----------|
-| accuracy test | 0.117               | 0.994 | 0.997               | 0.997549      | 0.999057      | 0.999246 |
+| Test accuracy  | 0.117               | 0.994 | 0.997               | 0.997549      | 0.999057      | 0.999246 |
 
 : *Accuracy of the models*
 
-## Results
+## Results and conclusion
 
-blabla
-
-## Conclusion
-
-blablabla
+![](images/image-753020983.png)

@@ -21,6 +21,8 @@ from xgboost import XGBClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+import matplotlib.pyplot as plt
+from xgboost import plot_importance
 
 
 
@@ -242,3 +244,26 @@ xgb_clf.fit(X_train, y_train)
 # Appel de la fonction print_score pour afficher les résultats
 print_score(xgb_clf, X_train, y_train, X_test, y_test, train=True)
 print_score(xgb_clf, X_train, y_train, X_test, y_test, train=False)
+
+# Présentation de l'importance de chaque variable
+plt.figure(figsize=(10, 6))
+plot_importance(xgb_clf, max_num_features=10) 
+plt.show()
+
+# Prédictions
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix
+
+# Calculer la matrice de confusion
+confusion = confusion_matrix(y_test, y_pred)
+
+# Créer une heatmap avec Seaborn
+sns.set(font_scale=1.2)  # Ajustez la taille de la police si nécessaire
+sns.heatmap(confusion, annot=True, fmt="d", cmap="Blues",
+            xticklabels=["Non 'hgf'", "'hgf'"], yticklabels=["Non 'hgf'", "'hgf'"])
+plt.xlabel('Prédictions')
+plt.ylabel('Vraies valeurs')
+plt.title('Matrice de confusion')
+plt.show()
+
