@@ -24,9 +24,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 1)  NA Treatment
 
--   For the yearest, use the minimum of the id - id = 0 : delete
+-   For the yearest, use the minimum of the id
 
--   use the mean of the value before and after the value when there are a value for another same id
+-   Replace sales and va missing by the mean of the value before and after the value
 
 -   Use the median imputation for variables with remaining missing values
 
@@ -36,7 +36,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 3)  Creating new variables
 
--   age, HGF and R&D
+-   Age, HGF and R&D
 
 ![*Matrix of correlation*](images/correlation_matrix.png)
 Matrix of correlation
