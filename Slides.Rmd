@@ -1,5 +1,5 @@
 ---
-title: "Supervised Learning project"
+title: "Supervised learning, M2 DS2E"
 author: "Marion, Lyna, Jeanne"
 date: "2023-09-20"
 output: ioslides_presentation
@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Presentation
 
-[Source of Data]{.underline} : the Survey on Buisiness Strategies
+[Source of Data]{.underline} : the Survey on Business Strategies
 
 -   2000 manufacturing companies
 
@@ -23,34 +23,35 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Steps
 
-### NA Treatment
+###  NA Treatment
 
 -   For the yearest, use the minimum of the id
 
--   id = 0 : delete
+-   Replace sales and va missing by mean of values before and after
 
--   use the mean of the value before and after the value when there are a value for another same id
-
--   Use the median imputation for variables with remaining missing values
+-   Use the median for variables with remaining missing values
 
 ### Outliers Treatment
 
--   Delete the 2 outliers in the "gom" column, which was extremely high comparing to the rest of the column
+-   Delete outliers in "gom", extremely high comparing to the rest
 
 ### Creating new variables
 
--   age, HGF and R&D
+-   Age, HGF and R&D
 
-![Matrix of correlation](correlation_matrix.png) Matrix of correlation
 
 ## Model
 
-|                | Logistic regression | SVM   | K nearest neighbors | Decision tree | Random forest | XG Boost |
+|               | Logistic regression | SVM   | K nearest neighbors | Decision tree | Random forest | XG Boost |
 |-----------|-----------|-----------|-----------|-----------|-----------|-----------|
-| Test accuracy  | 0.117               | 0.994 | 0.997               | 0.997549      | 0.999057      | 0.999246 |
+| accuracy test | 0.117               | 0.994 | 0.997               | 0.997549      | 0.999057      | 0.999246 |
 
 : *Accuracy of the models*
 
-## Results and conclusion
+## Feature importance
 
-![](images/image-753020983.png)
+![](C:/Users/epcmic/Downloads/380386402_1680270772459941_7122742866459170658_n.png)
+
+## Confusion matrix
+
+![](C:/Users/epcmic/Downloads/380423384_1345563179384175_5510160570273412243_n (1).png)
